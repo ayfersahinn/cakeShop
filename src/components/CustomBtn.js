@@ -2,9 +2,16 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { spacing, fonts, border, colors } from "../theme/theme";
 import { FontAwesome } from "@expo/vector-icons";
 
-const CustomBtn = ({ text, textSize, bgColor, icon, style }) => {
+const CustomBtn = ({ text, textSize, bgColor, icon, style, onPress }) => {
   return (
-    <Pressable style={[styles.btn, { backgroundColor: bgColor }, style]}>
+    <Pressable
+      style={({ pressed }) => [
+        styles.btn,
+        { backgroundColor: pressed ? "#c78a2e" : bgColor },
+        style,
+      ]}
+      onPress={onPress}
+    >
       {icon && (
         <FontAwesome
           name={icon}
@@ -22,7 +29,8 @@ export default CustomBtn;
 
 const styles = StyleSheet.create({
   btn: {
-    width: "100%",
+    // width: "100%",
+    flex: 1,
     height: 36,
     flexDirection: "row",
     alignItems: "center",
