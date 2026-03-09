@@ -96,6 +96,8 @@ const PasswordSecurity = () => {
                     secureTextEntry={!eye[index]}
                     value={item.value}
                     onChangeText={item.onChange}
+                    onFocus={() => setActiveInput(item.id)}
+                    onBlur={() => setActiveInput(null)}
                   />
                   <Pressable onPress={() => toggleEye(index)}>
                     <Ionicons

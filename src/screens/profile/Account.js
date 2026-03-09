@@ -101,6 +101,7 @@ const Account = () => {
                   value={form[item.key]}
                   onChangeText={(text) => handleChange(item.key, text)}
                   onFocus={() => setActiveInput(item.key)}
+                  onBlur={() => setActiveInput(null)}
                 />
 
                 {errors[item.key] && (
