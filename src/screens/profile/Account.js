@@ -90,7 +90,7 @@ const Account = () => {
                   style={[
                     styles.input,
                     errors[item.key]
-                      ? { borderColor: "red" }
+                      ? { borderColor: "#f88d83" }
                       : activeInput === item.key
                         ? { borderColor: colors.secondary }
                         : null,
