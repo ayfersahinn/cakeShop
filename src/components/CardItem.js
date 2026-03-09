@@ -76,16 +76,18 @@ const CardItem = ({
               marginTop: 10,
             }}
           >
-            <CustomBtn bgColor={btnColor} text={btnText} icon={icon} />
-            {deleteBtn && (
-              <View style={styles.iconBox}>
-                <Ionicons
-                  name="trash-outline"
-                  size={24}
-                  color={colors.secondary}
-                />
-              </View>
-            )}
+            <View style={{ flexDirection: "row", flex: 1, gap: 5 }}>
+              <CustomBtn bgColor={btnColor} text={btnText} icon={icon} />
+              {deleteBtn && (
+                <View style={styles.iconBox}>
+                  <Ionicons
+                    name="trash-outline"
+                    size={24}
+                    color={colors.secondary}
+                  />
+                </View>
+              )}
+            </View>
           </View>
         </View>
       </View>
@@ -171,7 +173,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: border.radius,
-    padding: 7,
+    height: 36,
+    paddingHorizontal: 6,
     elevation: 2,
   },
 });
