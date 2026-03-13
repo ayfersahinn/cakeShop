@@ -5,6 +5,7 @@ import {
   Orders,
   Coupon,
   PasswordSecurity,
+  Help,
 } from "../../screens/profile";
 const Stack = createNativeStackNavigator();
 
@@ -82,6 +83,22 @@ export default function ProfileStack() {
         options={{
           unmountOnBlur: true,
           title: "Şifre Değiştir",
+          headerStyle: {
+            backgroundColor: "#F2F2F2",
+          },
+          headerTintColor: "#3a3a3a",
+          headerTitleStyle: {
+            fontFamily: "PromptSemi",
+            fontSize: 20,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Help"
+        component={Help}
+        options={{
+          unmountOnBlur: true,
+          title: "Yardım",
           headerStyle: {
             backgroundColor: "#F2F2F2",
           },
