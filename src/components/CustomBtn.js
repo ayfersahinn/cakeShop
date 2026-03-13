@@ -2,7 +2,14 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { spacing, fonts, border, colors } from "../theme/theme";
 import { FontAwesome } from "@expo/vector-icons";
 
-const CustomBtn = ({ text, textSize, bgColor, icon, style, onPress }) => {
+const CustomBtn = ({
+  text = "Sepete Ekle",
+  textSize,
+  bgColor = "#dfa44b",
+  icon,
+  style,
+  onPress,
+}) => {
   return (
     <Pressable
       style={({ pressed }) => [
@@ -39,7 +46,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: border.radius,
-    // backgroundColor: "#dfa44b",
     elevation: 2,
   },
   btnText: {
