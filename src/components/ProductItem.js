@@ -11,11 +11,15 @@ import { FontAwesome } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { spacing, colors, fonts, border } from "../theme/theme";
 import CustomBtn from "./CustomBtn";
+import { useNavigation } from "@react-navigation/native";
+
 export default function ProductItem({ horizontal }) {
   const [like, setLike] = useState(false);
   const toggleLike = () => {
     setLike(!like);
   };
+  const navigation = useNavigation();
+
   return (
     <View style={[styles.product, horizontal && styles.horizontalCard]}>
       <View style={styles.imgBox}>
@@ -39,7 +43,12 @@ export default function ProductItem({ horizontal }) {
             color={like ? "#dfa44b" : colors.primary}
           />
         </Pressable>
-        <Image style={styles.image} source={require("../assets/cupcake.jpg")} />
+        <Pressable onPress={() => navigation.navigate("ProductDetail")}>
+          <Image
+            style={styles.image}
+            source={require("../assets/cupcake.jpg")}
+          />
+        </Pressable>
       </View>
       <View style={styles.content}>
         <Text style={styles.name}>Ürün adı</Text>
@@ -127,24 +136,5 @@ export const styles = StyleSheet.create({
   stars: {
     flexDirection: "row",
     justifyContent: "flex-end",
-  },
-  btn: {
-    backgroundColor: "#dfa44b",
-    paddingVertical: 8,
-    borderRadius: 8,
-    marginVertical: 5,
-    // iOS Shadow
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-
-    // Android Shadow
-    elevation: 2,
-  },
-  btnText: {
-    textAlign: "center",
-    color: colors.bgLight,
-    fontFamily: fonts.title,
   },
 });
