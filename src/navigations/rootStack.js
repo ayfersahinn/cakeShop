@@ -1,8 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "../navigations/tabs";
-import { Notification } from "../screens";
-
+import { Notification, ProductDetail } from "../screens";
 const Stack = createNativeStackNavigator();
 
 export default function RootStack() {
@@ -27,6 +26,13 @@ export default function RootStack() {
               fontFamily: "PromptSemi",
               fontSize: 20,
             },
+          }}
+        />
+        <Stack.Screen
+          name="ProductDetail"
+          component={ProductDetail}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
