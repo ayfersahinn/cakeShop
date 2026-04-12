@@ -46,7 +46,7 @@ const Help = () => {
         <ScrollView contentContainerStyle={{ padding: spacing.horizontal }}>
           <View style={styles.box}>
             {faqs.map((item, index) => (
-              <>
+              <View key={index}>
                 <Pressable
                   style={[
                     styles.helpItem,
@@ -77,7 +77,7 @@ const Help = () => {
                     <Text style={styles.answer}>{item.answer}</Text>
                   </View>
                 )}
-              </>
+              </View>
             ))}
           </View>
         </ScrollView>
