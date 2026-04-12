@@ -15,6 +15,11 @@ export default function Tabs() {
         tabBarStyle: {
           backgroundColor: colors.background,
         },
+        tabBarItemStyle: {
+          justifyContent: "center",
+          alignItems: "center",
+          paddingVertical: 8,
+        },
         headerStyle: {
           backgroundColor: colors.background,
         },

@@ -6,6 +6,7 @@ import {
   Coupon,
   PasswordSecurity,
   Help,
+  Rating,
 } from "../../screens/profile";
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +100,22 @@ export default function ProfileStack() {
         options={{
           unmountOnBlur: true,
           title: "Yardım",
+          headerStyle: {
+            backgroundColor: "#F2F2F2",
+          },
+          headerTintColor: "#3a3a3a",
+          headerTitleStyle: {
+            fontFamily: "PromptSemi",
+            fontSize: 20,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Rating"
+        component={Rating}
+        options={{
+          unmountOnBlur: true,
+          title: "Değerlendirmeler",
           headerStyle: {
             backgroundColor: "#F2F2F2",
           },

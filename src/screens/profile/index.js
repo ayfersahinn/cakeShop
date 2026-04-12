@@ -4,5 +4,6 @@ import Orders from "./Orders";
 import Coupon from "./Coupon";
 import PasswordSecurity from "./PasswordSecurity";
 import Help from "./Help";
+import Rating from "./Rating";
 
-export { Profile, Account, Orders, Coupon, PasswordSecurity, Help };
+export { Profile, Account, Orders, Coupon, PasswordSecurity, Help, Rating };
