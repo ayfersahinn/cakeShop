@@ -1,4 +1,4 @@
-const BASE_URL = "cakeshop-production-6adf.up.railway.app/api";
+const BASE_URL = "https://cakeshop-production-6adf.up.railway.app/api";
 
 export const productService = {
   getAll: async () => {
