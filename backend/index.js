@@ -15,6 +15,6 @@ app.get("/", (req, res) => {
   res.json({ message: "CakeShop API çalışıyor" });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Sunucu ${PORT} portunda çalışıyor`);
 });
