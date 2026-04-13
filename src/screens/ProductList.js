@@ -11,7 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { SearchHeader, ProductItem } from "../components";
 import { spacing, colors, border, fonts } from "../theme/theme";
-import { productService } from "../../backend/src/services/api.js";
+import { productService } from "../services/api.js";
 
 export default function ProductList({ route }) {
   const [products, setProducts] = useState([]);
