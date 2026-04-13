@@ -20,7 +20,12 @@ export default function CategoryScroll() {
       >
         {categoryItems.map((i) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("ProductList")}
+            onPress={() =>
+              navigation.navigate("ProductList", {
+                categoryId: i.id,
+                categoryName: i.title,
+              })
+            }
             style={styles.category}
             key={i.id}
           >

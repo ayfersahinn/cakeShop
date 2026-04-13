@@ -1,13 +1,52 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { SearchHeader, ProductItem } from "../components";
 import { spacing, colors, border, fonts } from "../theme/theme";
+import { productService } from "../../backend/src/services/api.js";
 
-export default function ProductList() {
-  const data = Array.from({ length: 10 }, (_, i) => ({ id: i.toString() }));
+export default function ProductList({ route }) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { categoryId, categoryName } = route?.params || {};
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [productsData, categoriesData] = await Promise.all([
+          categoryId
+            ? productService.getByCategory(categoryId)
+            : productService.getAll(),
+        ]);
+        setProducts(productsData);
+        setCategories(categoriesData);
+        setSelectedCategory(categoryId || null);
+      } catch (error) {
+        console.error("Veri yüklenemedi:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [categoryId]);
+  if (loading) {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+  }
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -27,9 +66,9 @@ export default function ProductList() {
         </View>
 
         <FlatList
-          data={data}
-          renderItem={() => <ProductItem />}
-          keyExtractor={(item) => item.id}
+          data={products}
+          renderItem={({ item }) => <ProductItem product={item} />}
+          keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: "space-between" }}
           contentContainerStyle={styles.list}

@@ -13,7 +13,7 @@ import { spacing, colors, fonts, border } from "../theme/theme";
 import CustomBtn from "./CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 
-export default function ProductItem({ horizontal }) {
+export default function ProductItem({ horizontal, product }) {
   const [like, setLike] = useState(false);
   const toggleLike = () => {
     setLike(!like);
@@ -43,21 +43,29 @@ export default function ProductItem({ horizontal }) {
             color={like ? "#dfa44b" : colors.primary}
           />
         </Pressable>
-        <Pressable onPress={() => navigation.navigate("ProductDetail")}>
-          <Image
-            style={styles.image}
-            source={require("../assets/cupcake.jpg")}
-          />
+        <Pressable
+          onPress={() => navigation.navigate("ProductDetail", { product })}
+        >
+          {product?.image_url ? (
+            <Image
+              style={styles.image}
+              source={{ uri: product.image_url }}
+              resizeMode="cover"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <Text>Resim yüklenemedi</Text>
+          )}
         </Pressable>
       </View>
       <View style={styles.content}>
-        <Text style={styles.name}>Ürün adı</Text>
+        <Text style={styles.name}>{product?.name}</Text>
 
         <View style={styles.priceBox}>
           <Text style={styles.newPrice}>
-            150.00 <FontAwesome name="try" size={14} color={colors.secondary} />
+            {product?.price}{" "}
+            <FontAwesome name="try" size={14} color={colors.secondary} />
           </Text>
-          <Text style={styles.PrevPrice}>180.00</Text>
         </View>
 
         <View style={styles.stars}>
