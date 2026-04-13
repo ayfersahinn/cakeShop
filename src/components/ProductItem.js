@@ -46,16 +46,16 @@ export default function ProductItem({ horizontal, product }) {
         <Pressable
           onPress={() => navigation.navigate("ProductDetail", { product })}
         >
-          {product?.image_url ? (
-            <Image
-              style={styles.image}
-              source={{ uri: product.image_url }}
-              resizeMode="cover"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <Text>Resim yüklenemedi</Text>
-          )}
+          <Image
+            style={styles.image}
+            source={
+              product?.image_url
+                ? { uri: product.image_url }
+                : require("../assets/broken-image.png")
+            }
+            resizeMode="cover"
+            onError={() => setImageError(true)}
+          />
         </Pressable>
       </View>
       <View style={styles.content}>

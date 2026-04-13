@@ -43,7 +43,7 @@ const ProductDetail = ({ route }) => {
               source={
                 product?.image_url
                   ? { uri: product.image_url }
-                  : require("../assets/cupcake.jpg")
+                  : require("../assets/broken-image.png")
               }
             />
           </View>
