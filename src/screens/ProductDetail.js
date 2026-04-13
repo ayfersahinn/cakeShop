@@ -15,18 +15,24 @@ import { FontAwesome } from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { CustomBtn } from "../components";
-const ProductDetail = () => {
+const ProductDetail = ({ route }) => {
+  const { product } = route.params;
   const [like, setLike] = useState(false);
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState(null);
   const toggleLike = () => {
     setLike(!like);
   };
-  const options = [
-    { label: "2 kişilik", value: "2" },
-    { label: "4 kişilik", value: "4" },
-    { label: "8 kişilik", value: "8" },
-  ];
+  const options = (product?.serving_options || [2, 4, 8]).map((size) => ({
+    label: `${size} kişilik`,
+    value: size.toString(),
+  }));
+  const getPrice = () => {
+    if (!selected) return product?.price;
+    const base = product?.price;
+    const multipliers = { 2: 1, 4: 2, 8: 4 };
+    return (base * multipliers[selected.value]).toFixed(2);
+  };
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -34,16 +40,20 @@ const ProductDetail = () => {
           <View style={styles.imgSection}>
             <Image
               style={styles.img}
-              source={require("../assets/cupcake.jpg")}
+              source={
+                product?.image_url
+                  ? { uri: product.image_url }
+                  : require("../assets/cupcake.jpg")
+              }
             />
           </View>
 
           <View style={styles.detailSection}>
             <View style={styles.category}>
-              <Text style={styles.catText}>Cupcake</Text>
+              <Text style={styles.catText}>{product?.categories?.name}</Text>
             </View>
             <View style={styles.header}>
-              <Text style={styles.title}>Çikolatalı Cupcake</Text>
+              <Text style={styles.title}>{product?.name}</Text>
 
               <Pressable onPress={toggleLike}>
                 <Ionicons
@@ -66,7 +76,7 @@ const ProductDetail = () => {
                 ))}
               </View>
               <Pressable style={styles.commentBtn}>
-                <Text style={styles.rateText}>5 Değerlendirme</Text>
+                <Text style={styles.rateText}>Değerlendirme yok</Text>
                 <MaterialIcons
                   name="keyboard-arrow-right"
                   size={15}
@@ -76,18 +86,7 @@ const ProductDetail = () => {
             </View>
 
             <View style={{ gap: 10 }}>
-              <Text style={styles.text}>4 kişilik · 180g · 1 adet</Text>
-              <Text style={styles.text}>
-                Belçika çikolatası ve taze tereyağı kreması ile hazırlanan,
-                üzeri renkli şeker süslemeli cupcake.
-              </Text>
-              <Text style={styles.text}>
-                İçindekiler: Un, yumurta, süt, tereyağı, kakao, pudra şekeri,
-                vanilya
-              </Text>
-              <Text style={styles.text}>
-                Dikkat! Gluten, süt ve yumurta içerir
-              </Text>
+              <Text style={styles.text}>{product?.description}</Text>
             </View>
             <View>
               <Pressable
@@ -160,7 +159,7 @@ const ProductDetail = () => {
         </ScrollView>
         <View style={styles.footer}>
           <Text style={styles.price}>
-            200.00
+            {getPrice()}
             <FontAwesome name="try" size={14} color={colors.secondary} />
           </Text>
           <CustomBtn textSize={fonts.textMd} style={{ height: 40 }} />
