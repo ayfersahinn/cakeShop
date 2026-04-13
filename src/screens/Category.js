@@ -23,7 +23,12 @@ export default function Category() {
           <View style={styles.categoryCards}>
             {categoryItems.map((i) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate("ProductList")}
+                onPress={() =>
+                  navigation.navigate("ProductList", {
+                    categoryId: i.id,
+                    categoryName: i.title,
+                  })
+                }
                 style={[styles.categoryCard, { backgroundColor: i.bgColor }]}
                 key={i.id}
               >
