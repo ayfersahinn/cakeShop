@@ -1,12 +1,41 @@
-import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { authService } from "../../services/auth";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { spacing, border, fonts, colors } from "../../theme/theme";
 export default function Profile() {
   const navigation = useNavigation();
-
+  const handleSignOut = async () => {
+    Alert.alert(
+      "Çıkış Yap",
+      "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
+      [
+        { text: "Vazgeç", style: "cancel" },
+        {
+          text: "Çıkış Yap",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await authService.signOut();
+            } catch (err) {
+              Alert.alert("Hata", "Çıkış yapılırken bir sorun oluştu");
+              console.log("SIGNOUT ERROR:", err.message);
+              Alert.alert("Hata", err.message);
+            }
+          },
+        },
+      ],
+    );
+  };
   const profileItems = [
     {
       id: 1,
@@ -48,7 +77,9 @@ export default function Profile() {
       id: 7,
       title: "Çıkış Yap",
       icon: "exit-outline",
-      routeName: "Exit",
+
+      routeName: null,
+      onPress: handleSignOut,
     },
   ];
   return (
@@ -58,7 +89,9 @@ export default function Profile() {
           {profileItems.map((i) => (
             <Pressable
               key={i.id}
-              onPress={() => navigation.navigate(i.routeName)}
+              onPress={
+                i.onPress ? i.onPress : () => navigation.navigate(i.routeName)
+              }
               style={({ pressed }) => [
                 styles.profileBox,
                 {
