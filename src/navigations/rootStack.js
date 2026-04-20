@@ -1,7 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "../navigations/tabs";
-import { Notification, ProductDetail, Login, Register } from "../screens";
+import {
+  Notification,
+  ProductDetail,
+  Login,
+  Register,
+  Onboarding,
+} from "../screens";
 const Stack = createNativeStackNavigator();
 
 import { useEffect, useState } from "react";
@@ -30,7 +36,7 @@ export default function RootStack() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={session ? "Tabs" : "Onboarding"}>
         {session ? (
           <>
             <Stack.Screen
@@ -59,6 +65,11 @@ export default function RootStack() {
           </>
         ) : (
           <>
+            <Stack.Screen
+              name="Onboarding"
+              component={Onboarding}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="Login"
               component={Login}
