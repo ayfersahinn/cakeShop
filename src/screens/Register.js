@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { authService } from "../services/auth";
@@ -39,9 +40,21 @@ const Register = () => {
     setLoading(true);
     try {
       await authService.signUp(form.email, form.password);
-      navigation.navigate("Login");
+      Alert.alert(
+        "Neredeyse tamam! ",
+        "Email adresinize bir onay linki gönderdik. Onayladıktan sonra giriş yapabilirsiniz.",
+        [{ text: "Tamam", onPress: () => navigation.navigate("Login") }],
+      );
     } catch (err) {
-      setError("Kayıt başarısız, tekrar dene");
+      console.log("SIGNUP ERROR:", err.message);
+
+      if (err.message.includes("already registered")) {
+        setError("Bu email zaten kayıtlı");
+      } else if (err.message.includes("rate limit")) {
+        setError("Çok fazla deneme yapıldı, lütfen biraz bekleyin");
+      } else {
+        setError(err.message || "Kayıt başarısız, tekrar dene");
+      }
     } finally {
       setLoading(false);
     }

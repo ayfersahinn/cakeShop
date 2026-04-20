@@ -24,9 +24,8 @@ const Login = () => {
     setLoading(true);
     try {
       await authService.signIn(form.email, form.password);
-      navigation.navigate("HomePage");
     } catch (err) {
-      setError("Email veya şifre hatalı");
+      setError(err.message || "Email veya şifre hatalı");
     } finally {
       setLoading(false);
     }
